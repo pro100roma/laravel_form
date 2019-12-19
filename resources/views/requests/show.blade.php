@@ -11,6 +11,7 @@
                 <p>Email: {{ $request->client_email }}</p>
                 <p>Subject: {{ $request->subject }}</p>
                 <p>Message: {{ $request->body }}</p>
+                <p>Uploaded <a href="file:///{{ $request->file }}" download>file</a></p>
                 <p>Creation time: {{ $request->created_at }}</p>
             </div>
         </div>

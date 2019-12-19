@@ -34,23 +34,26 @@
                     @endif
                     @if ( Auth::user()->admin == 0 )
                         <p>Количество запросов: {{count($requestEmail)}}</p>
-                        @if (count($requestEmail) == 0 || $diff >= 24)
-                            <form action="/requests/new_request" method="POST">
+                        {{-- @if (count($requestEmail) == 0 || $diff >= 24) --}}
+                            <form action="/requests/new_request" method="POST" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <div class="input-group">
                                     <input type="text" name="subject" class="form-control" placeholder="Subject" required>
                                 </div>
                                 <div class="input-group">
-                                    <textarea class="form-control" name="message" placeholder="Message"></textarea>
+                                    <textarea class="form-control" name="message" placeholder="Message" required></textarea>
+                                </div>
+                                <div class="input-group">
+                                    <input type="file" name="file" class="form-control" required>
                                 </div>
                                 <div class="input-group input-group-btn">
                                     <input type="submit" class="btn btn-primary" value="Send">
                                 </div>
                             </form>
-                        @else
+                        {{-- @else --}}
                             <p>Last request: <strong>{{$diff}}</strong> hours ago.</p>
                             <p>You can make your next request in {{24 - $diff}} hours</p>
-                        @endif
+                        {{-- @endif --}}
 
                     @endif
                 </div>

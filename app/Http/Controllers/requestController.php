@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB, Requests, Auth, Mail;
+use Illuminate\Support\Facades\Storage;
+use \Illuminate\Filesystem\FilesystemManager;
 
 class requestController extends Controller
 {
@@ -21,7 +23,18 @@ public function formSubmit(Request $request) {
     $req->body = $request->input('message');
     $req->client_name = Auth::user()->name;
     $req->client_email = Auth::user()->email;
+    if($request->hasFile('file')) {
+        $file = $request->file('file');
+        $filename = 'file' . time() . '.' . $file->getClientOriginalExtension();
+        $req->file = $file->move(public_path() . '/uploads', $filename);
+        //$req->file = \File::extension($filename);
+        // $path = $request->file('file')->store('public');
+        // $req->file = storage_path() . '/app/' . $path;
+        
+    }
+    
     $req->save();
+    
 
     //Send email to admin
     // $to_name =  Auth::user()->name;

@@ -19,6 +19,7 @@ class CreateRequestsTable extends Migration
             $table->text('body');
             $table->text('client_name');
             $table->text('client_email');
+            $table->text('file');
             $table->timestamps();
         });
     }
