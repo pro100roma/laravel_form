@@ -23,7 +23,6 @@ Route::get('send', 'mailController@send');
 Route::post('/requests/new_request', 'requestController@formSubmit');
 
 Route::get('/requests', function () {
-    //$requests = DB::table('requests')->get();
     $requests = App\Requests::all();
     return view('requests.index', compact('requests'));
 });

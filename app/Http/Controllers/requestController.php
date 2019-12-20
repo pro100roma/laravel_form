@@ -9,13 +9,8 @@ use \Illuminate\Filesystem\FilesystemManager;
 
 class requestController extends Controller
 {
-    ////This method is to process the form
+////This method is to process the form
 public function formSubmit(Request $request) {
-
-    // DB::table('requests')->insert([
-    //     'subject' => $request->subject,
-    //     'body' => $request->message
-    // ]);
 
     //Insert data to DB
     $req = new \App\Requests;
@@ -27,9 +22,6 @@ public function formSubmit(Request $request) {
         $file = $request->file('file');
         $filename = 'file' . time() . '.' . $file->getClientOriginalExtension();
         $req->file = $file->move(public_path() . '/uploads', $filename);
-        //$req->file = \File::extension($filename);
-        // $path = $request->file('file')->store('public');
-        // $req->file = storage_path() . '/app/' . $path;
         
     }
     
@@ -37,13 +29,20 @@ public function formSubmit(Request $request) {
     
 
     //Send email to admin
-    // $to_name =  Auth::user()->name;
-    // $to_email = 'chronos945@mail.ru';//Auth::user()->email;
-    // $data = array('name'=>Auth::user()->name, "body" => "Test email");
-    // Mail::send(['text' => 'mail'], $data, function($message) use ($to_name, $to_email) {
-    //     $message->to($to_email, $to_name)->subject('Web Testing Mail');
-    //     $message->from('chronos945@gmail.com', 'Artisans Web');
-    // });
+    $to_name =  'Admin';
+    $to_email = 'chronos945@mail.ru';
+    $data = array(
+        'name'=>Auth::user()->name, 
+        'email'=>Auth::user()->email, 
+        'subject' => $req->subject,
+        'body' => $req->body,
+        'file_url' => $req->file
+    );
+
+    Mail::send('mail', $data, function($message) use ($to_name, $to_email) {
+        $message->to($to_email, $to_name)->subject('New request');
+        $message->from('chronos945@gmail.com', 'Test dashboard');
+    });
 
     //return Redirect::back();
 

@@ -16,7 +16,7 @@
 
                     <p>You are logged in, <strong>{{ Auth::user()->name }}</strong></p>
                     <p>Email: <strong>{{ Auth::user()->email }}</strong></p>
-                    {{-- <p><a href="/send">Send me email</a></p> --}}
+                    <p><a href="/send">Send me email</a></p>
                     
                     <?php use Carbon\Carbon; 
                     $requestEmail = App\Requests::where('client_email', Auth::user()->email)->get();
@@ -34,7 +34,7 @@
                     @endif
                     @if ( Auth::user()->admin == 0 )
                         <p>Количество запросов: {{count($requestEmail)}}</p>
-                        {{-- @if (count($requestEmail) == 0 || $diff >= 24) --}}
+                        @if (count($requestEmail) == 0 || $diff >= 24)
                             <form action="/requests/new_request" method="POST" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <div class="input-group">
@@ -50,10 +50,10 @@
                                     <input type="submit" class="btn btn-primary" value="Send">
                                 </div>
                             </form>
-                        {{-- @else --}}
+                        @else
                             <p>Last request: <strong>{{$diff}}</strong> hours ago.</p>
                             <p>You can make your next request in {{24 - $diff}} hours</p>
-                        {{-- @endif --}}
+                        @endif
 
                     @endif
                 </div>
