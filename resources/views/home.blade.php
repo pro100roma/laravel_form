@@ -16,7 +16,7 @@
 
                     <p>You are logged in, <strong>{{ Auth::user()->name }}</strong></p>
                     <p>Email: <strong>{{ Auth::user()->email }}</strong></p>
-                    <p><a href="/send">Send me email</a></p>
+                    {{-- <p><a href="/send">Send me email</a></p> --}}
                     
                     <?php use Carbon\Carbon; 
                     $requestEmail = App\Requests::where('client_email', Auth::user()->email)->get();
