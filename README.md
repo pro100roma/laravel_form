@@ -1,3 +1,52 @@
+# Инструкция по развертыванию проекта
+Необходимо установить локальный сервер для базы данных
+
+Для MAC OS - MAMP
+Для Windows - OpenServer
+
+## Установка PHP
+Через пакетный менеджер <a href="https://brew.sh">Homebrew</a>.
+
+Данной командой в консоли:
+```bash
+brew install php@7.2
+```
+
+## Установка Composer через консоль:
+```bash
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'baf1608c33254d00611ac1705c1d9958c817a1a33bce370c0595974b342601bd80b92a3f46067da89e3b06bff421f182') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+```
+
+## Установка Laravel глобально из консоли:
+```bash
+composer global require laravel/installer
+```
+
+Если команда "composer" на работает и выдает ошибку "command is not found", тогда используйте:
+```bash
+php composer.phar global require laravel/installer
+```
+
+## Создание проекта Laravel:
+Открыть консоль в папке локального сервера:
+Для MacOS - /MAMP/htdocs
+Для Windows - /OpenServer/domains
+
+Далее в консоли:
+```bash
+composer create-project --prefer-dist laravel/laravel appname
+```
+Ждем пока установится, переходим в папку с новым проектом и запускаем локальный сервер laravel
+```bash
+php artisan serve
+```
+В консоли покажет адрес, по которому доступен новый сайт.
+Далее заменяем файлы проекта и перезагружаем сервер.
+
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
